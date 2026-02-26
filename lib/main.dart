@@ -35,43 +35,33 @@ class MyApp extends StatelessWidget {
           themeMode: state.themeMode,
           theme: ThemeData(brightness: Brightness.light, useMaterial3: true),
           darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
-          home: HomeScreen(
-            position: Position(
-              longitude: 0,
-              latitude: 0,
-              timestamp: DateTime.now(),
-              accuracy: 0,
-              altitude: 0,
-              altitudeAccuracy: 0,
-              heading: 0,
-              headingAccuracy: 0,
-              speed: 0,
-              speedAccuracy: 0,
-            ),
-          ),
-          // FutureBuilder(
-          //   key: Key("value"),
-          //   future: _determinePosition(),
-          //   builder: (context, snap) {
-          //     if (snap.hasData) {
-          //       return HomeScreen(position: snap.data as Position);
-          //       // return BlocProvider<WeatherBlocBloc>(
-          //       //   create: (context) =>
-          //       //       WeatherBlocBloc()
-          //       //         ..add(FetchWeather(snap.data as Position)),
-          //       //   child: const HomeScreen(),
-          //       // );
-          //     } else {
-          //       return const Scaffold(
-          //         body: Center(child: CircularProgressIndicator()),
-          //       );
-          //     }
-          //   },
+          // home: HomeScreen(
+          //   position: Position(
+          //     longitude: 0,
+          //     latitude: 0,
+          //     timestamp: DateTime.now(),
+          //     accuracy: 0,
+          //     altitude: 0,
+          //     altitudeAccuracy: 0,
+          //     heading: 0,
+          //     headingAccuracy: 0,
+          //     speed: 0,
+          //     speedAccuracy: 0,
+          //   ),
           // ),
+          home: FutureBuilder<Position>(
+            future: _determinePosition(),
+            builder: (context, snap) {
+              if (snap.hasData) {
+                return HomeScreen(position: snap.data as Position);
+              } else {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              }
+            },
+          ),
         );
-        // } else {
-        //   return MaterialApp(home: Container());
-        // }
       },
     );
   }

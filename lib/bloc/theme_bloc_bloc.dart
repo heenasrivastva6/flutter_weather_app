@@ -15,7 +15,7 @@ class LoadTheme extends ThemeEvent {}
 
 // Bloc
 class ThemeBloc extends Bloc<ThemeEvent, ThemeBlocState> {
-  ThemeBloc() : super(ThemeBlocInitial()) {
+  ThemeBloc() : super(const ThemeBlocSuccess(ThemeMode.system)) {
     on<LoadTheme>((event, emit) async {
       final prefs = await SharedPreferences.getInstance();
       final isDark = prefs.getBool('isDark') ?? true;
